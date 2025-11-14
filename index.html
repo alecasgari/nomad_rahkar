@@ -1,0 +1,1385 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ویزای دیجیتال نومد - راهکارگشت</title>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --spanish-red: #c60b1e;
+      --spanish-dark-red: #8e0714;
+      --spanish-gold: #f1bf00;
+      --spanish-sun: #ffc400;
+      --spanish-orange: #f28f1f;
+      --spanish-cream: #fff4cc;
+    }
+    
+    body {
+      box-sizing: border-box;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, var(--spanish-dark-red) 0%, var(--spanish-red) 45%, var(--spanish-orange) 80%, var(--spanish-gold) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .gradient-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255, 244, 204, 0.25) 0%, transparent 50%, rgba(255, 244, 204, 0.25) 100%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    
+    @keyframes shimmer {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+    }
+    
+    .floating-particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .particle:nth-child(1) { width: 10px; height: 10px; left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { width: 15px; height: 15px; left: 20%; animation-delay: 1s; }
+    .particle:nth-child(3) { width: 8px; height: 8px; left: 30%; animation-delay: 2s; }
+    .particle:nth-child(4) { width: 12px; height: 12px; left: 40%; animation-delay: 0.5s; }
+    .particle:nth-child(5) { width: 18px; height: 18px; left: 50%; animation-delay: 1.5s; }
+    .particle:nth-child(6) { width: 6px; height: 6px; left: 60%; animation-delay: 2.5s; }
+    .particle:nth-child(7) { width: 14px; height: 14px; left: 70%; animation-delay: 3s; }
+    .particle:nth-child(8) { width: 9px; height: 9px; left: 80%; animation-delay: 0.8s; }
+    .particle:nth-child(9) { width: 16px; height: 16px; left: 90%; animation-delay: 2.2s; }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+    
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card-hover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .card-hover:hover::before {
+      left: 100%;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(198, 11, 30, 0.25);
+    }
+    
+    .pulse-animation {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .7; }
+    }
+    
+    .bounce-animation {
+      animation: bounce 1s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+      50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .slide-in-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.8s ease-out;
+    }
+    
+    .slide-in-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .slide-in-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.8s ease-out;
+    }
+    
+    .slide-in-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .typing-animation {
+      overflow: hidden;
+      border-left: 3px solid var(--spanish-orange);
+      white-space: nowrap;
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: var(--spanish-orange); }
+    }
+    
+    .wave-animation {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .wave-animation::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: wave 2s linear infinite;
+    }
+    
+    @keyframes wave {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    .glow-effect {
+      box-shadow: 0 0 20px rgba(198, 11, 30, 0.35);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 20px rgba(198, 11, 30, 0.35); }
+      to { box-shadow: 0 0 30px rgba(198, 11, 30, 0.55), 0 0 45px rgba(255, 196, 0, 0.4); }
+    }
+    
+    .icon-bounce {
+      animation: iconBounce 2s ease-in-out infinite;
+    }
+    
+    @keyframes iconBounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, var(--spanish-red) 0%, var(--spanish-orange) 55%, var(--spanish-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .step-counter {
+      background: linear-gradient(135deg, var(--spanish-red) 0%, var(--spanish-orange) 60%, var(--spanish-gold) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .step-counter::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.6s ease;
+    }
+    
+    .step-counter:hover::before {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .faq-item {
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 2px solid transparent;
+    }
+    
+    .faq-item:hover {
+      border-color: rgba(198, 11, 30, 0.25);
+      box-shadow: 0 12px 30px rgba(198, 11, 30, 0.12);
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+    
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+    
+    .faq-icon {
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+      background: linear-gradient(135deg, var(--spanish-dark-red) 0%, var(--spanish-red) 60%, var(--spanish-orange) 100%);
+    }
+    
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      z-index: 60;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal-content {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 24px 24px 0 0;
+      z-index: 70;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      max-height: 90%;
+      overflow-y: auto;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+    
+    .time-slot {
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.92);
+      color: #7a2a16;
+      border-color: rgba(198, 11, 30, 0.25);
+      box-shadow: 0 6px 18px rgba(198, 11, 30, 0.1);
+    }
+    
+    .time-slot::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 196, 0, 0.18), transparent);
+      transition: left 0.3s;
+    }
+    
+    .time-slot:hover::before,
+    .time-slot.selected::before {
+      left: 100%;
+    }
+
+    .time-slot:hover {
+      color: var(--spanish-dark-red);
+      box-shadow: 0 8px 22px rgba(198, 11, 30, 0.18);
+    }
+    
+    .time-slot.selected {
+      background: linear-gradient(135deg, var(--spanish-red) 0%, var(--spanish-orange) 60%, var(--spanish-gold) 100%);
+      color: white;
+      border-color: var(--spanish-red);
+      transform: scale(1.05);
+    }
+    
+    .day-button {
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .day-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 196, 0, 0.18), transparent);
+      transition: left 0.3s;
+    }
+    
+    .day-button:hover::before {
+      left: 100%;
+    }
+    
+    .day-button.selected {
+      background: linear-gradient(135deg, var(--spanish-red) 0%, var(--spanish-orange) 60%, var(--spanish-gold) 100%);
+      color: white;
+      border-color: var(--spanish-red);
+      transform: scale(1.05);
+    }
+    
+    .cta-button {
+      background: linear-gradient(135deg, #c60b1e 0%, #f28f1f 60%, #ffc400 100%);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 0 18px 40px rgba(198, 11, 30, 0.35);
+    }
+    
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .cta-button:hover::before {
+      left: 100%;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(198, 11, 30, 0.4);
+    }
+    
+    .section-divider {
+      height: 100px;
+      background: linear-gradient(135deg, var(--spanish-dark-red) 0%, var(--spanish-red) 45%, var(--spanish-orange) 80%, var(--spanish-gold) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .section-divider::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+      animation: movePattern 20s linear infinite;
+    }
+    
+    @keyframes movePattern {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(60px); }
+    }
+    
+    @media (min-width: 768px) {
+      .sticky-cta {
+        display: none;
+      }
+    }
+    
+    .stagger-animation {
+      animation-delay: var(--delay);
+    }
+
+    .hero-title-line {
+      display: block;
+      line-height: 1.2;
+      text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      margin: 0 auto 0.4rem;
+    }
+
+    .hero-title-line.primary {
+      color: var(--spanish-sun) !important;
+      -webkit-text-fill-color: var(--spanish-sun) !important;
+    }
+
+    .hero-title-line.secondary {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      margin-bottom: 0;
+    }
+
+    .hero-flag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-inline: 0.5rem;
+      vertical-align: middle;
+      transform: translateY(-0.15em);
+    }
+
+    .hero-flag svg {
+      width: 2.8rem;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    #hero-cta {
+      border: 3px solid rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(6px);
+    }
+
+    #hero-cta:hover {
+      border-color: #ffffff;
+      box-shadow: 0 18px 40px rgba(255, 196, 0, 0.35);
+    }
+
+    .why-icon {
+      width: 88px;
+      height: 88px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(198, 11, 30, 0.95), rgba(242, 143, 31, 0.95));
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(198, 11, 30, 0.25);
+    }
+
+    .why-icon svg {
+      width: 60px;
+      height: auto;
+    }
+
+    #main-title,
+    #main-subtitle,
+    #final-cta-title {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="bg-gray-50"><!-- Hero Section -->
+  <header class="gradient-bg text-white relative">
+   <div class="floating-particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+   </div>
+   <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="fade-in">
+      <h1 id="main-title" class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+       <span class="hero-flag" role="img" aria-label="پرچم اسپانیا">
+        <svg viewBox="0 0 36 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+         <rect width="36" height="24" rx="4" fill="#AA151B"></rect>
+         <rect y="6" width="36" height="12" fill="#F1BF00"></rect>
+         <path d="M13.5 9.5h9v5h-9z" fill="#AA151B" opacity="0.8"></path>
+         <circle cx="18" cy="12" r="1.4" fill="#F1BF00"></circle>
+        </svg>
+       </span>
+       <span class="hero-title-line primary">کار کن، سفر کن، زندگی کن</span>
+       <span class="hero-title-line secondary">از هر نقطه‌ای در جهان</span>
+      </h1>
+     </div>
+     <div class="fade-in" style="animation-delay: 0.2s;">
+      <h2 id="main-subtitle" class="text-2xl md:text-4xl font-semibold mb-6 opacity-95">ویزای دیجیتال نومد اسپانیا به شما اجازه می‌دهد در کشوری جدید زندگی کنید، بدون اینکه شغل فعلی‌تان را ترک کنید.</h2>
+     </div>
+     <div class="fade-in" style="animation-delay: 0.4s;" >
+      <p id="hero-description" class="text-lg md:text-xl mb-8 leading-relaxed opacity-90 max-w-3xl mx-auto ">با راهکارگشت، مسیر مهاجرت دیجیتال نومد را امن، سریع و قانونی طی کنید.</p>
+     </div>
+     <div class="fade-in" style="animation-delay: 0.6s;"><button id="hero-cta" class="cta-button text-white px-10 py-5 rounded-full text-xl md:text-2xl font-extrabold tracking-wider shadow-xl glow-effect"> درخواست ارزیابی رایگان </button>
+     </div><!-- Animated Arrow -->
+     <div class="mt-12 bounce-animation">
+      <svg class="w-8 h-8 mx-auto text-white opacity-70" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+     </div>
+    </div>
+   </div>
+  </header><!-- Section Divider -->
+  <div class="section-divider"></div><!-- Why Section -->
+  <section class="py-16 md:py-20 bg-white relative overflow-hidden">
+   <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-red-100 to-transparent rounded-full -translate-y-32 translate-x-32 opacity-50"></div>
+   <div class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-yellow-100 to-transparent rounded-full translate-y-48 -translate-x-48 opacity-50"></div>
+   <div class="container mx-auto px-4 relative z-10">
+    <div class="max-w-4xl mx-auto">
+     <div class="fade-in">
+      <div class="flex justify-center mb-6">
+       <div class="why-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+         <defs>
+          <linearGradient id="iconMonitor" x1="0%" y1="0%" x2="100%" y2="100%">
+           <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
+           <stop offset="100%" stop-color="#ffe27a" stop-opacity="0.9" />
+          </linearGradient>
+         </defs>
+         <circle cx="32" cy="18" r="10" fill="#ffe27a"></circle>
+         <path d="M21 34c0-6.08 4.92-11 11-11s11 4.92 11 11v6h-22v-6z" fill="#ffffff" opacity="0.95"></path>
+         <rect x="10" y="34" width="44" height="18" rx="4" fill="url(#iconMonitor)"></rect>
+         <path d="M18 52h28l-4 6H22l-4-6z" fill="#aa151b" opacity="0.85"></path>
+         <rect x="22" y="38" width="20" height="8" rx="2" fill="#aa151b" opacity="0.7"></rect>
+        </svg>
+       </div>
+      </div>
+      <h2 id="why-title" class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-center gradient-text">اگر فقط به اینترنت نیاز داری، چرا از یک جای بهتر کار نکنی؟</h2>
+     </div>
+     <div class="slide-in-left">
+      <div class="text-lg text-gray-700 leading-relaxed space-y-4 wave-animation">
+       <p>در دنیای امروز، هزاران متخصص، فریلنسر و کارمند ریموت در حال جابجایی به کشورهایی هستن که با ویزای دیجیتال نومد ازشون استقبال می‌کنن.</p>
+       <p class="text-red-700 font-medium">و می‌خوان در کشوری امن‌تر، با کیفیت زندگی بهتر، ساکن بشن.</p>
+       <p class="font-semibold text-red-700">این ویزا مخصوص افرادی است که:</p>
+       <ul class="space-y-3 mr-6">
+        <li class="flex items-start fade-in" style="animation-delay: 0.1s;">
+         <div class="icon-bounce ml-3">
+         <svg class="w-6 h-6 text-red-500" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+         </div><span>به صورت دورکار یا فریلنسر کار می‌کنن</span></li>
+        <li class="flex items-start fade-in" style="animation-delay: 0.2s;">
+         <div class="icon-bounce ml-3">
+         <svg class="w-6 h-6 text-red-500" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+         </div><span>درآمدشون از خارج کشوره</span></li>
+        <li class="flex items-start fade-in" style="animation-delay: 0.3s;">
+         <div class="icon-bounce ml-3">
+         <svg class="w-6 h-6 text-red-500" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+         </div><span>و می‌خوان در کشوری امن‌تر، با کیفیت زندگی بهتر، ساکن بشن</span></li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Benefits Section -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-yellow-50 relative overflow-hidden">
+   <div class="absolute top-0 left-0 w-full h-full opacity-10">
+    <svg class="w-full h-full" viewbox="0 0 100 100" preserveaspectratio="none"><defs>
+      <pattern id="grid" width="10" height="10" patternunits="userSpaceOnUse">
+       <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5" />
+      </pattern>
+     </defs> <rect width="100" height="100" fill="url(#grid)" />
+    </svg>
+   </div>
+   <div class="container mx-auto px-4 relative z-10">
+    <div class="fade-in">
+     <h2 id="benefits-title" class="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center gradient-text">چرا دیجیتال نومد، انتخاب هوشمنده‌ای برای شماست.</h2>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+     <div class="bg-white p-6 rounded-2xl shadow-md card-hover fade-in stagger-animation" style="--delay: 0.1s;">
+      <div class="text-5xl mb-4 icon-bounce">
+       🌍
+      </div>
+      <h3 class="text-xl font-bold text-gray-800 mb-3">اقامت قانونی</h3>
+      <p class="text-gray-600">✅ اقامت قانونی در کشور مقصد بدون نیاز به جاب آفر</p>
+      <div class="mt-4 h-1 bg-gradient-to-r from-red-500 to-yellow-400 rounded-full"></div>
+     </div>
+     <div class="bg-white p-6 rounded-2xl shadow-md card-hover fade-in stagger-animation" style="--delay: 0.2s;">
+      <div class="text-5xl mb-4 icon-bounce">
+       ✈️
+      </div>
+      <h3 class="text-xl font-bold text-gray-800 mb-3">سفر بدون محدودیت</h3>
+      <p class="text-gray-600">✅ امکان سفر آزادانه (بدون محدودیت) در محدوده اتحادیه اروپا</p>
+      <div class="mt-4 h-1 bg-gradient-to-r from-red-500 to-orange-400 rounded-full"></div>
+     </div>
+     <div class="bg-white p-6 rounded-2xl shadow-md card-hover fade-in stagger-animation" style="--delay: 0.3s;">
+      <div class="text-5xl mb-4 icon-bounce">
+       🏡
+      </div>
+      <h3 class="text-xl font-bold text-gray-800 mb-3">کیفیت زندگی</h3>
+      <p class="text-gray-600">✅ زندگی در کشوری با کیفیت زندگی بالاتر</p>
+      <div class="mt-4 h-1 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full"></div>
+     </div>
+     <div class="bg-white p-6 rounded-2xl shadow-md card-hover fade-in stagger-animation" style="--delay: 0.4s;">
+      <div class="text-5xl mb-4 icon-bounce">
+       💰
+      </div>
+      <h3 class="text-xl font-bold text-gray-800 mb-3">مالیات شفاف</h3>
+      <p class="text-gray-600">✅ فرصت کاری در اتحادیه اروپا و شبکه‌سازی حرفه‌ای</p>
+      <div class="mt-4 h-1 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full"></div>
+     </div>
+     <div class="bg-white p-6 rounded-2xl shadow-md card-hover fade-in stagger-animation" style="--delay: 0.5s;">
+      <div class="text-5xl mb-4 icon-bounce">
+       🔄
+      </div>
+      <h3 class="text-xl font-bold text-gray-800 mb-3">تمدید و تبدیل</h3>
+      <p class="text-gray-600">✅ فرصت تمدید و تبدیل به اقامت دائم</p>
+      <div class="mt-4 h-1 bg-gradient-to-r from-red-500 to-orange-500 rounded-full"></div>
+     </div>
+     <div class="bg-white p-6 rounded-2xl shadow-md card-hover fade-in stagger-animation" style="--delay: 0.6s;">
+      <div class="text-5xl mb-4 icon-bounce">
+       🎯
+      </div>
+      <h3 class="text-xl font-bold text-gray-800 mb-3">مسیر قانونی</h3>
+      <p class="text-gray-600">مسیری امن و قانونی برای مهاجرت</p>
+      <div class="mt-4 h-1 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full"></div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Steps Section -->
+  <section class="py-16 md:py-20 bg-white relative overflow-hidden">
+   <div class="absolute inset-0 bg-gradient-to-br from-transparent via-yellow-50 to-transparent"></div>
+   <div class="container mx-auto px-4 relative z-10">
+    <div class="fade-in">
+     <h2 id="steps-title" class="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center gradient-text">سه قدم تا شروع زندگی در اروپا</h2>
+    </div>
+    <div class="max-w-4xl mx-auto space-y-8">
+     <div class="flex items-start gap-6 slide-in-left">
+      <div class="flex-shrink-0 w-16 h-16 step-counter text-white rounded-full flex items-center justify-center text-2xl font-bold pulse-animation">
+       1
+      </div>
+      <div class="flex-1">
+       <h3 class="text-2xl font-bold text-gray-800 mb-3">ارزیابی شرایط</h3>
+       <p class="text-gray-600 text-lg">بررسی دقیق شغل، درآمد و کشور مناسب شما</p>
+       <div class="mt-3 flex items-center space-x-2 space-x-reverse">
+        <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+        <div class="w-2 h-2 bg-orange-400 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+        <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+       </div>
+      </div>
+     </div>
+     <div class="flex items-start gap-6 slide-in-right">
+      <div class="flex-shrink-0 w-16 h-16 step-counter text-white rounded-full flex items-center justify-center text-2xl font-bold pulse-animation" style="animation-delay: 0.5s;">
+       2
+      </div>
+      <div class="flex-1">
+       <h3 class="text-2xl font-bold text-gray-800 mb-3">آماده‌سازی مدارک و ترجمه‌ها</h3>
+       <p class="text-gray-600 text-lg">با چک‌لیست اختصاصی راهکارگشت</p>
+       <div class="mt-3 flex items-center space-x-2 space-x-reverse">
+        <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+        <div class="w-2 h-2 bg-orange-400 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+        <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+       </div>
+      </div>
+     </div>
+     <div class="flex items-start gap-6 slide-in-left">
+      <div class="flex-shrink-0 w-16 h-16 step-counter text-white rounded-full flex items-center justify-center text-2xl font-bold pulse-animation" style="animation-delay: 1s;">
+       3
+      </div>
+      <div class="flex-1">
+       <h3 class="text-2xl font-bold text-gray-800 mb-3">ارسال پرونده و دریافت ویزا</h3>
+       <p class="text-gray-600 text-lg">توسط تیم متخصص و وکیل رسمی مهاجرت</p>
+       <div class="mt-3 flex items-center space-x-2 space-x-reverse">
+        <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+        <div class="w-2 h-2 bg-orange-400 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+        <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- FAQ Section -->
+ <section class="py-16 md:py-20 bg-gradient-to-br from-gray-50 via-yellow-50 to-red-50 relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-72 h-72 bg-gradient-to-bl from-yellow-200 to-transparent rounded-full -translate-y-36 translate-x-36 opacity-30"></div>
+   <div class="container mx-auto px-4 relative z-10">
+    <div class="fade-in">
+     <h2 id="faq-title" class="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center gradient-text">سؤالاتی که ممکنه برات پیش بیاد</h2>
+    </div>
+    <div class="max-w-3xl mx-auto space-y-4" id="faq-container">
+     <div class="faq-item bg-white rounded-xl shadow-md overflow-hidden fade-in" style="animation-delay: 0.1s;"><button class="faq-question w-full text-right p-6 flex items-center justify-between hover:bg-gray-50 transition"> <span class="text-lg font-semibold text-gray-800">با این ویزا می‌تونم برای شرکت ایرانی کار کنم؟</span>
+      <div class="faq-icon w-8 h-8 text-red-600 flex-shrink-0 mr-4 rounded-full bg-yellow-100 flex items-center justify-center">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+       </div></button>
+      <div class="faq-answer px-6 pb-6">
+       <p class="text-gray-600 leading-relaxed">بله، می‌توانید برای شرکت‌های ایرانی یا بین‌المللی به صورت ریموت کار کنید. مهم این است که درآمد شما از خارج از کشور مقصد باشد و به صورت قانونی اعلام شود.</p>
+      </div>
+     </div>
+     <div class="faq-item bg-white rounded-xl shadow-md overflow-hidden fade-in" style="animation-delay: 0.2s;"><button class="faq-question w-full text-right p-6 flex items-center justify-between hover:bg-gray-50 transition"> <span class="text-lg font-semibold text-gray-800">نیاز به مدرک زبان دارم؟</span>
+      <div class="faq-icon w-8 h-8 text-red-600 flex-shrink-0 mr-4 rounded-full bg-yellow-100 flex items-center justify-center">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+       </div></button>
+      <div class="faq-answer px-6 pb-6">
+       <p class="text-gray-600 leading-relaxed">برای دریافت ویزای دیجیتال نومد اسپانیا نیاز به مدرک زبان ندارید</p>
+      </div>
+     </div>
+     <div class="faq-item bg-white rounded-xl shadow-md overflow-hidden fade-in" style="animation-delay: 0.3s;"><button class="faq-question w-full text-right p-6 flex items-center justify-between hover:bg-gray-50 transition"> <span class="text-lg font-semibold text-gray-800">مالیاتم چطور محاسبه می‌شه؟</span>
+      <div class="faq-icon w-8 h-8 text-red-600 flex-shrink-0 mr-4 rounded-full bg-yellow-100 flex items-center justify-center">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+       </div></button>
+      <div class="faq-answer px-6 pb-6">
+       <p class="text-gray-600 leading-relaxed">مالیات بر اساس قوانین کشور مقصد و میزان درآمد شما محاسبه می‌شود..</p>
+      </div>
+     </div>
+     <div class="faq-item bg-white rounded-xl shadow-md overflow-hidden fade-in" style="animation-delay: 0.4s;"><button class="faq-question w-full text-right p-6 flex items-center justify-between hover:bg-gray-50 transition"> <span class="text-lg font-semibold text-gray-800">بعد از چند سال می‌تونم اقامت دائم بگیرم؟</span>
+      <div class="faq-icon w-8 h-8 text-red-600 flex-shrink-0 mr-4 rounded-full bg-yellow-100 flex items-center justify-center">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+       </div></button>
+      <div class="faq-answer px-6 pb-6">
+       <p class="text-gray-600 leading-relaxed">ویزای دیجیتال نومد اسپانیا در ابتدا برای ۱ سال صادر می‌شه و بعد از اون می‌تونه تا ۵ سال تمدید بشه.
+ اگر در تمام این مدت به‌صورت قانونی در اسپانیا زندگی و مالیات پرداخت کنید، بعد از ۵ سال اقامت مداوم بعد از این تمدید، می‌تونید برای اقامت دائم اسپانیا اقدام کنید.
+</p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Final CTA Section -->
+  <section class="py-16 md:py-24 gradient-bg text-white relative overflow-hidden">
+   <div class="floating-particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+   </div>
+   <div class="container mx-auto px-4 relative z-10">
+    <div class="max-w-3xl mx-auto text-center">
+     <div class="fade-in">
+      <h2 id="final-cta-title" class="text-3xl md:text-5xl font-bold mb-6">فاصله تو تا شروع یه زندگی جدید فقط یه کلیکه</h2>
+     </div>
+     <div class="fade-in" style="animation-delay: 0.3s;"><button id="final-cta-button" class="bg-white text-red-700 px-10 py-5 rounded-full text-xl font-semibold hover:bg-yellow-50 transition shadow-lg glow-effect"> دریافت مشاوره رایگان </button>
+     </div><!-- Animated Elements -->
+     <div class="mt-8 flex justify-center space-x-4 space-x-reverse">
+      <div class="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+      <div class="w-3 h-3 bg-white rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+      <div class="w-3 h-3 bg-white rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Sticky CTA Button (Mobile Only) -->
+  <div class="sticky-cta md:hidden"><button id="sticky-cta-btn" class="w-full text-white py-4 px-6 font-semibold text-lg shadow-lg hover:opacity-90 transition"> درخواست مشاوره رایگان </button>
+  </div><!-- Modal Overlay -->
+  <div class="modal-overlay" id="modal-overlay">
+   <div class="modal-content">
+    <div class="p-6">
+     <div class="flex items-center justify-between mb-6">
+      <h3 class="text-2xl font-bold text-gray-800 gradient-text">درخواست مشاوره رایگان</h3><button id="close-modal" class="text-gray-500 hover:text-gray-700 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition">
+       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       </svg></button>
+     </div>
+     <form id="consultation-form" class="space-y-6" novalidate>
+      <div id="contact-form-section" class="space-y-6">
+       <div class="fade-in"><label class="block text-gray-700 font-semibold mb-2" for="full-name">نام و نام خانوادگی</label> <input type="text" id="full-name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition" placeholder="نام کامل خود را وارد کنید">
+       </div>
+       <div class="fade-in" style="animation-delay: 0.1s;"><label class="block text-gray-700 font-semibold mb-2" for="phone">شماره واتساپ</label> <input type="tel" id="phone" required pattern="[0-9]*" inputmode="numeric" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition" placeholder="09123456789">
+       </div>
+       <div class="space-y-4 fade-in" style="animation-delay: 0.2s;">
+        <div>
+         <label class="block text-gray-700 font-semibold mb-3">روز مورد نظر</label>
+         <div class="grid grid-cols-3 gap-2" id="days-container"></div>
+        </div>
+        <div id="time-slots-wrapper" class="hidden space-y-3">
+         <label class="block text-gray-700 font-semibold">ساعت مورد نظر</label>
+         <div class="grid grid-cols-2 gap-2" id="time-slots"></div>
+        </div>
+       </div>
+       <button type="button" id="send-otp-btn" class="w-full cta-button text-white py-4 rounded-lg font-semibold text-lg disabled:bg-gray-400 disabled:cursor-not-allowed"> ارسال کد تایید </button>
+      </div>
+      <div id="otp-section" class="hidden space-y-4">
+       <div class="text-center">
+        <h4 class="text-xl font-bold text-gray-800 mb-2">تایید شماره موبایل</h4>
+        <p class="text-gray-600">یک کد ۵ رقمی برای شما ارسال کردیم. لطفاً آن را وارد کنید.</p>
+       </div>
+       <div class="flex justify-center">
+        <input type="tel" id="otp-code-input" maxlength="5" inputmode="numeric" class="text-center tracking-widest text-2xl w-48 px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition" placeholder="-----">
+       </div>
+       <div id="otp-error-message" class="hidden text-red-600 text-center font-medium"></div>
+       <div id="resend-container" class="text-center text-sm text-gray-500"></div>
+       <button type="button" id="verify-otp-btn" class="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-semibold text-lg transition disabled:bg-gray-400 disabled:cursor-not-allowed"> تایید کد </button>
+      </div>
+      <div id="success-message" class="hidden bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg text-center font-semibold">
+       درخواست شما با موفقیت ثبت شد! به زودی با شما تماس می‌گیریم.
+      </div>
+     </form>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      main_title: "کار کن، سفر کن، زندگی کن",
+      main_subtitle: "از هر نقطه‌ای در جهان",
+      hero_description: "با راهکارگشت، مسیر مهاجرت دیجیتال نومد را امن، سریع و قانونی طی کنید.",
+      cta_button_text: "درخواست ارزیابی رایگان",
+      why_title: "اگر فقط به اینترنت نیاز داری، چرا از یک جای بهتر کار نکنی؟",
+      benefits_title: "چرا دیجیتال نومد، انتخاب هوشمنده‌ای برای شماست.",
+      steps_title: "سه قدم تا شروع زندگی در اروپا",
+      faq_title: "سؤالاتی که ممکنه برات پیش بیاد",
+      final_cta_title: "فاصله تو تا شروع یه زندگی جدید فقط یه کلیکه",
+      final_cta_button: "دریافت مشاوره رایگان",
+      background_color: "#fdf6ec",
+      primary_color: "#c60b1e",
+      text_color: "#1f2937",
+      card_background: "#ffffff",
+      accent_color: "#f1bf00"
+    };
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    function initAnimations() {
+      const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+      animatedElements.forEach(el => observer.observe(el));
+    }
+
+    async function initializeApp() {
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (config) => {
+            document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+            document.getElementById('main-subtitle').textContent = config.main_subtitle || defaultConfig.main_subtitle;
+            document.getElementById('hero-description').textContent = config.hero_description || defaultConfig.hero_description;
+            document.getElementById('hero-cta').textContent = config.cta_button_text || defaultConfig.cta_button_text;
+            document.getElementById('why-title').textContent = config.why_title || defaultConfig.why_title;
+            document.getElementById('benefits-title').textContent = config.benefits_title || defaultConfig.benefits_title;
+            document.getElementById('steps-title').textContent = config.steps_title || defaultConfig.steps_title;
+            document.getElementById('faq-title').textContent = config.faq_title || defaultConfig.faq_title;
+            document.getElementById('final-cta-title').textContent = config.final_cta_title || defaultConfig.final_cta_title;
+            document.getElementById('final-cta-button').textContent = config.final_cta_button || defaultConfig.final_cta_button;
+
+            document.body.style.backgroundColor = config.background_color || defaultConfig.background_color;
+          },
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              {
+                get: () => config.background_color || defaultConfig.background_color,
+                set: (value) => {
+                  if (window.elementSdk) {
+                    window.elementSdk.config.background_color = value;
+                    window.elementSdk.setConfig({ background_color: value });
+                  }
+                }
+              },
+              {
+                get: () => config.primary_color || defaultConfig.primary_color,
+                set: (value) => {
+                  if (window.elementSdk) {
+                    window.elementSdk.config.primary_color = value;
+                    window.elementSdk.setConfig({ primary_color: value });
+                  }
+                }
+              },
+              {
+                get: () => config.text_color || defaultConfig.text_color,
+                set: (value) => {
+                  if (window.elementSdk) {
+                    window.elementSdk.config.text_color = value;
+                    window.elementSdk.setConfig({ text_color: value });
+                  }
+                }
+              },
+              {
+                get: () => config.card_background || defaultConfig.card_background,
+                set: (value) => {
+                  if (window.elementSdk) {
+                    window.elementSdk.config.card_background = value;
+                    window.elementSdk.setConfig({ card_background: value });
+                  }
+                }
+              },
+              {
+                get: () => config.accent_color || defaultConfig.accent_color,
+                set: (value) => {
+                  if (window.elementSdk) {
+                    window.elementSdk.config.accent_color = value;
+                    window.elementSdk.setConfig({ accent_color: value });
+                  }
+                }
+              }
+            ],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: (config) => new Map([
+            ["main_title", config.main_title || defaultConfig.main_title],
+            ["main_subtitle", config.main_subtitle || defaultConfig.main_subtitle],
+            ["hero_description", config.hero_description || defaultConfig.hero_description],
+            ["cta_button_text", config.cta_button_text || defaultConfig.cta_button_text],
+            ["why_title", config.why_title || defaultConfig.why_title],
+            ["benefits_title", config.benefits_title || defaultConfig.benefits_title],
+            ["steps_title", config.steps_title || defaultConfig.steps_title],
+            ["faq_title", config.faq_title || defaultConfig.faq_title],
+            ["final_cta_title", config.final_cta_title || defaultConfig.final_cta_title],
+            ["final_cta_button", config.final_cta_button || defaultConfig.final_cta_button]
+          ])
+        });
+      }
+
+      initAnimations();
+      generateDays();
+    }
+
+    function convertToEnglishNumbers(str) {
+      if (typeof str !== 'string') return str;
+      const persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
+      const arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
+      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      for (let i = 0; i < 10; i++) {
+        str = str.replace(persianNumbers[i], englishNumbers[i]).replace(arabicNumbers[i], englishNumbers[i]);
+      }
+      return str;
+    }
+
+    function standardizePhoneNumber(phone) {
+      let cleanPhone = convertToEnglishNumbers(phone || '');
+      cleanPhone = cleanPhone.replace(/\D/g, '');
+
+      if (cleanPhone.startsWith('0098')) {
+        cleanPhone = '98' + cleanPhone.substring(4);
+      } else if (cleanPhone.startsWith('+98')) {
+        cleanPhone = cleanPhone.substring(1);
+      } else if (cleanPhone.startsWith('98')) {
+        // already correct
+      } else if (cleanPhone.startsWith('09')) {
+        cleanPhone = '98' + cleanPhone.substring(1);
+      } else if (cleanPhone.startsWith('9')) {
+        cleanPhone = '98' + cleanPhone;
+      } else if (cleanPhone.length) {
+        cleanPhone = '98' + cleanPhone;
+      }
+
+      return cleanPhone;
+    }
+
+    function validatePhoneInput(input) {
+      const sanitized = convertToEnglishNumbers(input.value).replace(/[^0-9]/g, '');
+      if (input.value !== sanitized) {
+        input.value = sanitized;
+      }
+      return sanitized;
+    }
+
+    function getUtmParams() {
+      const params = new URLSearchParams(window.location.search);
+      const utmData = {};
+      const utmMapping = {
+        'utm_source': 'utm_source_field',
+        'utm_medium': 'utm_medium_field',
+        'utm_campaign': 'utm_campaign_field',
+        'utm_term': 'utm_term_field',
+        'utm_content': 'utm_content_field'
+      };
+      for (const key in utmMapping) {
+        if (params.has(key)) {
+          utmData[utmMapping[key]] = params.get(key);
+        }
+      }
+      return utmData;
+    }
+
+    const toPersianDigits = (num) => num.toString().replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+
+    const modalOverlay = document.getElementById('modal-overlay');
+    const consultationForm = document.getElementById('consultation-form');
+    const contactFormSection = document.getElementById('contact-form-section');
+    const otpSection = document.getElementById('otp-section');
+    const successMessage = document.getElementById('success-message');
+    const daysContainer = document.getElementById('days-container');
+    const timeSlotsWrapper = document.getElementById('time-slots-wrapper');
+    const timeSlotsContainer = document.getElementById('time-slots');
+    const sendOtpBtn = document.getElementById('send-otp-btn');
+    const verifyOtpBtn = document.getElementById('verify-otp-btn');
+    const otpCodeInput = document.getElementById('otp-code-input');
+    const otpErrorMessage = document.getElementById('otp-error-message');
+    const resendContainer = document.getElementById('resend-container');
+    const phoneInput = document.getElementById('phone');
+    const nameInput = document.getElementById('full-name');
+
+    let selectedDayInfo = null;
+    let selectedTimeInfo = null;
+    let finalPackage = {};
+    let timerInterval = null;
+    let failedAttempts = 0;
+    const maxAttempts = 5;
+
+    function openModal() {
+      resetForm();
+      modalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      nameInput.focus();
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      resetForm();
+    }
+
+    function clearTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function resetForm() {
+      consultationForm.reset();
+      clearTimer();
+      selectedDayInfo = null;
+      selectedTimeInfo = null;
+      finalPackage = {};
+      failedAttempts = 0;
+      otpErrorMessage.classList.add('hidden');
+      otpErrorMessage.textContent = '';
+      resendContainer.textContent = '';
+      otpSection.classList.add('hidden');
+      contactFormSection.classList.remove('hidden');
+      successMessage.classList.add('hidden');
+      sendOtpBtn.disabled = false;
+      sendOtpBtn.textContent = 'ارسال کد تایید';
+      verifyOtpBtn.disabled = false;
+      verifyOtpBtn.textContent = 'تایید کد';
+      generateDays();
+      timeSlotsContainer.innerHTML = '';
+      timeSlotsWrapper.classList.add('hidden');
+    }
+
+    function generateDays() {
+      daysContainer.innerHTML = '';
+      const today = new Date();
+      const dayNames = ['یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه', 'شنبه'];
+
+      for (let i = 1; i <= 7; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+        if (date.getDay() === 5) continue; // skip Fridays
+
+        const dateStr = date.toISOString().split('T')[0];
+        const dayName = dayNames[date.getDay()];
+
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'day-button px-4 py-3 border-2 border-gray-300 rounded-lg font-semibold transition duration-200 hover:border-red-500 focus:outline-none';
+        button.dataset.date = dateStr;
+        button.dataset.dayName = dayName;
+        button.textContent = dayName;
+        button.addEventListener('click', () => {
+          document.querySelectorAll('#days-container .day-button').forEach(btn => btn.classList.remove('selected'));
+          button.classList.add('selected');
+          selectedDayInfo = { button, dateStr, dayName };
+          selectedTimeInfo = null;
+          generateTimeSlots(dateStr, dayName);
+        });
+
+        daysContainer.appendChild(button);
+      }
+    }
+
+    function generateTimeSlots(dateStr, dayName) {
+      timeSlotsContainer.innerHTML = '';
+      const dateObj = new Date(dateStr);
+      const dayOfWeek = dateObj.getDay();
+
+      const startHour = 10;
+      const endExclusive = (dayOfWeek === 4) ? 15 : 17; // Thursday shorter
+
+      for (let hour = startHour; hour < endExclusive; hour++) {
+        const label = `بین ${toPersianDigits(hour)} تا ${toPersianDigits(hour + 1)}`;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'time-slot px-4 py-3 border-2 border-gray-300 rounded-lg font-semibold transition duration-200 hover:border-red-500 focus:outline-none relative';
+        const labelSpan = document.createElement('span');
+        labelSpan.textContent = label;
+        labelSpan.className = 'relative z-10';
+        button.appendChild(labelSpan);
+        button.dataset.slot = `${dateStr}_${hour}-${hour + 1}`;
+        button.dataset.label = label;
+        button.addEventListener('click', () => {
+          document.querySelectorAll('#time-slots .time-slot').forEach(btn => btn.classList.remove('selected'));
+          button.classList.add('selected');
+          selectedTimeInfo = { button, label, slotId: button.dataset.slot };
+        });
+
+        timeSlotsContainer.appendChild(button);
+      }
+
+      if (timeSlotsContainer.children.length > 0) {
+        timeSlotsWrapper.classList.remove('hidden');
+      }
+    }
+
+    function startResendTimer() {
+      clearTimer();
+      let timeLeft = 120;
+
+      const updateTimer = () => {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        resendContainer.innerHTML = `<p>ارسال مجدد کد در ${toPersianDigits(minutes)}:${toPersianDigits(seconds.toString().padStart(2, '0'))}</p>`;
+        timeLeft--;
+
+        if (timeLeft < 0) {
+          clearTimer();
+          resendContainer.innerHTML = '<button type="button" id="resend-link" class="text-red-600 font-semibold hover:underline">ارسال مجدد کد</button>';
+          const resendLink = document.getElementById('resend-link');
+          if (resendLink) {
+            resendLink.addEventListener('click', (event) => {
+              event.preventDefault();
+              sendOtp(true);
+            });
+          }
+        }
+      };
+
+      updateTimer();
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    async function sendOtp(isResend = false) {
+      otpErrorMessage.classList.add('hidden');
+      otpErrorMessage.textContent = '';
+
+      const sanitizedPhone = validatePhoneInput(phoneInput);
+      if (!nameInput.value.trim()) {
+        alert('لطفاً نام کامل خود را وارد کنید.');
+        return;
+      }
+
+      if (!sanitizedPhone || sanitizedPhone.length < 10) {
+        alert('لطفاً شماره موبایل معتبری وارد کنید.');
+        return;
+      }
+
+      if (!selectedDayInfo || !selectedTimeInfo) {
+        alert('لطفاً روز و ساعت تماس را انتخاب کنید.');
+        return;
+      }
+
+      const standardizedNumber = standardizePhoneNumber(sanitizedPhone);
+
+      sendOtpBtn.disabled = !isResend;
+      if (!isResend) {
+        sendOtpBtn.textContent = 'در حال ارسال...';
+      } else {
+        resendContainer.innerHTML = '<p class="text-gray-500">در حال ارسال مجدد کد...</p>';
+      }
+
+      try {
+        const bookingSlot = `${selectedDayInfo.dayName} ساعت ${selectedTimeInfo.label}`;
+        const utmParams = getUtmParams();
+        const payload = {
+          formname: nameInput.value.trim(),
+          formnumber: standardizedNumber,
+          booking_slot: bookingSlot,
+          ...utmParams
+        };
+
+        const response = await fetch('/send-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error('Send OTP failed');
+        }
+
+        finalPackage = {
+          finalContact: {
+            name: nameInput.value.trim(),
+            phone: standardizedNumber
+          },
+          bookingDetails: {
+            slot: bookingSlot
+          },
+          utmData: utmParams
+        };
+
+        if (!isResend) {
+          contactFormSection.classList.add('hidden');
+          otpSection.classList.remove('hidden');
+          otpCodeInput.focus();
+        }
+
+        startResendTimer();
+      } catch (error) {
+        console.error('Error sending OTP:', error);
+        if (isResend) {
+          resendContainer.innerHTML = '<p class="text-red-600 font-semibold">ارسال مجدد کد با خطا مواجه شد. لطفاً دوباره تلاش کنید.</p>';
+        } else {
+          alert('ارسال کد با مشکل مواجه شد. لطفاً دوباره تلاش کنید.');
+        }
+      } finally {
+        if (!isResend) {
+          sendOtpBtn.disabled = false;
+          sendOtpBtn.textContent = 'ارسال کد تایید';
+        }
+      }
+    }
+
+    async function verifyOtp() {
+      otpErrorMessage.classList.add('hidden');
+      otpErrorMessage.textContent = '';
+
+      const otpCode = convertToEnglishNumbers(otpCodeInput.value).replace(/[^0-9]/g, '');
+      if (!otpCode || otpCode.length < 5) {
+        otpErrorMessage.textContent = 'لطفاً کد ۵ رقمی را کامل وارد کنید.';
+        otpErrorMessage.classList.remove('hidden');
+        return;
+      }
+
+      verifyOtpBtn.disabled = true;
+      verifyOtpBtn.textContent = 'در حال بررسی...';
+
+      try {
+        const verificationPayload = {
+          ...finalPackage,
+          otp_code: otpCode
+        };
+
+        const response = await fetch('/verify-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(verificationPayload)
+        });
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+          clearTimer();
+          otpSection.classList.add('hidden');
+          successMessage.textContent = 'درخواست شما با موفقیت ثبت شد! به زودی با شما تماس می‌گیریم.';
+          successMessage.classList.remove('hidden');
+          resendContainer.textContent = '';
+          setTimeout(() => {
+            closeModal();
+          }, 4000);
+        } else {
+          failedAttempts++;
+          const remaining = maxAttempts - failedAttempts;
+          otpErrorMessage.textContent = remaining > 0
+            ? `کد وارد شده اشتباه است. (${toPersianDigits(remaining)} تلاش دیگر باقی مانده است.)`
+            : 'تعداد تلاش‌ها بیش از حد مجاز است. لطفاً فرم را دوباره ارسال کنید.';
+          otpErrorMessage.classList.remove('hidden');
+          if (failedAttempts >= maxAttempts) {
+            verifyOtpBtn.disabled = true;
+          }
+        }
+      } catch (error) {
+        console.error('Error verifying OTP:', error);
+        otpErrorMessage.textContent = 'بررسی کد با خطا مواجه شد. لطفاً دوباره تلاش کنید.';
+        otpErrorMessage.classList.remove('hidden');
+      } finally {
+        if (failedAttempts < maxAttempts) {
+          verifyOtpBtn.disabled = false;
+          verifyOtpBtn.textContent = 'تایید کد';
+        }
+      }
+    }
+
+    document.getElementById('hero-cta').addEventListener('click', openModal);
+    document.getElementById('final-cta-button').addEventListener('click', openModal);
+    document.getElementById('sticky-cta-btn').addEventListener('click', openModal);
+    document.getElementById('close-modal').addEventListener('click', closeModal);
+
+    modalOverlay.addEventListener('click', (event) => {
+      if (event.target === modalOverlay) {
+        closeModal();
+      }
+    });
+
+    consultationForm.addEventListener('submit', (event) => event.preventDefault());
+
+    phoneInput.addEventListener('input', () => validatePhoneInput(phoneInput));
+
+    otpCodeInput.addEventListener('input', (event) => {
+      event.target.value = convertToEnglishNumbers(event.target.value).replace(/[^0-9]/g, '');
+    });
+
+    otpCodeInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        verifyOtp();
+      }
+    });
+
+    sendOtpBtn.addEventListener('click', () => sendOtp(false));
+    verifyOtpBtn.addEventListener('click', verifyOtp);
+
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqItem = button.closest('.faq-item');
+        const wasActive = faqItem.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+        if (!wasActive) {
+          faqItem.classList.add('active');
+        }
+      });
+    });
+
+    initializeApp();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99b74b046339b47e',t:'MTc2MjYyODIxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
